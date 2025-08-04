@@ -1,0 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Righteous&display=swap');
+
+:root {
+  --white: #FFFFFF;
+  --red-500: #EF4444;
+  --red-400: #F07070;
+  --blue-800: #003264;
+  --blue-500: #3B82F6;
+  --blue-400: #D3EAFF;
+  --green-500: #65BD00;
+  --green-400: #A1E961;
+  --gray-500: #777777;
+  --gray-400: #ADADAD;
+  --text-gray: #727272;
+
+  --base-font-size: 1rem;
+}

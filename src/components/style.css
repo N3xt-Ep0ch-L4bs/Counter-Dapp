@@ -1,0 +1,82 @@
+/* .card-container {
+
+} */
+
+.card-container {
+  display: grid;
+  grid-template-columns: auto 40px;
+  background-color: var(--blue-500);
+  border-radius: 13px;
+  padding: 1rem;
+  gap: .5rem;
+  margin-bottom: 10px;
+  text-align: center;
+  font-size: var(--base-font-size);
+  align-items: center;
+}
+
+.id-box {
+  font-size: calc(var(--base-font-size) * 1.5);
+}
+.arrow {
+  grid-column: 2/3;
+  grid-row: 1/4;
+  margin-bottom: auto;
+  animation: spin 4s linear infinite;
+}
+
+.count {
+  font-size: calc(var(--base-font-size) * 2.5);
+  font-weight: 400;
+}
+.btn-group  {
+  display: flex;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: 1fr;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.btn-group button {
+  border-radius: 10px;
+  height: 50px;
+  width: 70px;
+}
+
+.icon {
+  width: 40px;
+  height: 30px;
+}
+
+.add {
+  background-color: var(--green-500);
+
+}
+
+.add:hover {
+background-color:darkgreen ;
+}
+
+.subtract {
+  background-color: var(--gray-500);
+}
+
+.subtract:hover {
+  background-color: black;
+}
+
+.delete {
+  background-color: var(--red-500);
+}
+
+.delete:hover {
+  background-color:brown;
+}
+
+.reset {
+  background-color: var(--gray-400);
+}
+
+.reset:hover {
+  background-color: var(--gray-500);
+}
