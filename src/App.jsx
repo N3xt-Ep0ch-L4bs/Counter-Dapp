@@ -13,16 +13,25 @@ function App() {
   const [hasConnected, setHasConnected] = useState(false);
   const [connecting, setConnecting] = useState(false);
   const [count, setCount] = useState(0);
+  const [openWalletId, setOpenWalletId] = useState(null);
+
+  const generateFakeAddress = () => {
+    const chars = 'abcdef0123456789';
+    let address = '0x';
+    for (let i = 0; i < 40; i++) {
+      address += chars[Math.floor(Math.random() * chars.length)];
+    }
+    return address;
+  };
 
   const [wallets, setWallets] = useState([
-    { id: 1, name: "Wallet A", count: 0 },
-    { id: 2, name: "Wallet B", count: 0 },
-    { id: 3, name: "Wallet C", count: 0 },
-    { id: 4, name: "Wallet D", count: 0 },
-    { id: 5, name: "Wallet E", count: 0 },
-    { id: 6, name: "Wallet F", count: 0 },
+    { id: 1, name: "Wallet A", address: generateFakeAddress(), count: 0 },
+    { id: 2, name: "Wallet B", address: generateFakeAddress(), count: 0 },
+    { id: 3, name: "Wallet C", address: generateFakeAddress(), count: 0 },
+    { id: 4, name: "Wallet D", address: generateFakeAddress(), count: 0 },
+    { id: 5, name: "Wallet E", address: generateFakeAddress(), count: 0 },
+    { id: 6, name: "Wallet F", address: generateFakeAddress(), count: 0 },
   ]);
-  const [openWalletId, setOpenWalletId] = useState(null);
 
   useEffect(() => {
     if (connected && account?.address && !hasConnected) {
@@ -82,10 +91,14 @@ function App() {
 
     const newId = Date.now();
     const nextLetter = String.fromCharCode(65 + wallets.length);
-    setWallets([
-      ...wallets,
-      { id: newId, name: `Wallet ${nextLetter}`, count: 0 }
-    ]);
+    const newWallet = {
+      id: newId,
+      name: `Wallet ${nextLetter}`,
+      address: generateFakeAddress(),
+      count: 0
+    };
+
+    setWallets([...wallets, newWallet]);
     showToast('Wallet created successfully!', 'success');
   };
 
@@ -120,7 +133,13 @@ function App() {
           )}
         </header>
 
-        <ConnectModal open={showModal} onOpenChange={setShowModal} />
+        <ConnectModal
+  open={showModal}
+  onOpenChange={(isOpen) => {
+    if (!connected) setShowModal(isOpen);
+  }}
+/>
+
 
         <div className="main-content">
           <div className="counter-box">
@@ -143,7 +162,7 @@ function App() {
               {wallets.map(wallet => (
                 <WalletCard
                   key={wallet.id}
-                  address={wallet.id}
+                  address={wallet.address.slice(0, 6) + '....'}
                   count={wallet.count}
                   isOpen={openWalletId === wallet.id}
                   onToggle={() => toggleWallet(wallet.id)}
