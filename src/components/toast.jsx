@@ -5,7 +5,7 @@ const Toast = ({ message, type, onClose }) => {
     <div className={`custom-toast ${type}`}>
       <span className="toast-icon">{type === 'success' ? '✅' : '❌'}</span>
       <span className="toast-message">{message}</span>
-      <button className="close-btn" onClick={onClose}>×</button>
+      <button className="close-btn" onClick={onClose}></button>
     </div>
   );
 };

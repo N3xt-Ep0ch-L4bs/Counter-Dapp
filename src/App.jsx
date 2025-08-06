@@ -1,20 +1,19 @@
-import { useState } from 'react';
-import Logo from './assets/image.png';
-import Toast from './components/toast';
-import './App.css';
+import { useState, useEffect } from 'react';
 import WalletCard from './components/walletCard';
+import { useWallet, ConnectModal } from '@suiet/wallet-kit';
+import '@suiet/wallet-kit/style.css';
+import Toast from './components/toast';
+import Logo from './assets/image.png';
+import './App.css';
 
 function App() {
+  const { connected, account, disconnect } = useWallet();
+  const [showModal, setShowModal] = useState(false);
   const [toast, setToast] = useState({ show: false, message: '', type: '' });
-
-  const showToast = (message, type = 'success') => {
-    setToast({ show: true, message, type });
-    setTimeout(() => {
-      setToast({ show: false, message: '', type: '' });
-    }, 3000);
-  };
-
+  const [hasConnected, setHasConnected] = useState(false);
+  const [connecting, setConnecting] = useState(false);
   const [count, setCount] = useState(0);
+
   const [wallets, setWallets] = useState([
     { id: 1, name: "Wallet A", count: 0 },
     { id: 2, name: "Wallet B", count: 0 },
@@ -24,6 +23,30 @@ function App() {
     { id: 6, name: "Wallet F", count: 0 },
   ]);
   const [openWalletId, setOpenWalletId] = useState(null);
+
+  useEffect(() => {
+    if (connected && account?.address && !hasConnected) {
+      setHasConnected(true);
+      setConnecting(false);
+      setShowModal(false);
+      showToast('Wallet connected!', 'success');
+    } else if (!connected && connecting) {
+      setConnecting(false);
+    }
+  }, [connected, account, hasConnected]);
+
+  const showToast = (message, type = 'success') => {
+    setToast({ show: true, message, type });
+    setTimeout(() => {
+      setToast({ show: false, message: '', type: '' });
+    }, 3000);
+  };
+
+  const handleLogout = () => {
+    disconnect();
+    setHasConnected(false);
+    showToast('Wallet disconnected', 'error');
+  };
 
   const updateCount = (id, delta) => {
     setWallets(prev =>
@@ -44,7 +67,7 @@ function App() {
   const deleteWallet = (id) => {
     setWallets(prev => prev.filter(wallet => wallet.id !== id));
     if (openWalletId === id) setOpenWalletId(null);
-    showToast('🗑️ Wallet deleted', 'error');
+    showToast('Wallet deleted', 'error');
   };
 
   const toggleWallet = (id) => {
@@ -53,7 +76,7 @@ function App() {
 
   const createNewWallet = () => {
     if (wallets.length >= 26) {
-      showToast(' Cannot create more than 26 wallets.', 'error');
+      showToast('Cannot create more than 26 wallets.', 'error');
       return;
     }
 
@@ -74,8 +97,30 @@ function App() {
             <img src={Logo} alt="logo" className="logo" />
             <h1>QUANTDAPP</h1>
           </div>
-          <button className="connect-wallet">Connect Wallet</button>
+
+          {!connected ? (
+            <button
+              className="connect-wallet"
+              onClick={() => {
+                setConnecting(true);
+                setShowModal(true);
+              }}
+            >
+              {connecting ? 'Connecting...' : 'Connect Wallet'}
+            </button>
+          ) : (
+            <div className="wallet-actions">
+              <button className="wallet-address">
+                {account?.address.slice(0, 6)}...{account?.address.slice(-4)}
+              </button>
+              <button className="logout" onClick={handleLogout}>
+                Logout
+              </button>
+            </div>
+          )}
         </header>
+
+        <ConnectModal open={showModal} onOpenChange={setShowModal} />
 
         <div className="main-content">
           <div className="counter-box">
@@ -88,34 +133,40 @@ function App() {
           </div>
 
           <div className="wallets-section">
-  <div className="wallets-header">
-    <button className="create-new" onClick={createNewWallet}>
-      Create new counter +
-    </button>
-  </div>
+            <div className="wallets-header">
+              <button className="create-new" onClick={createNewWallet}>
+                Create new counter +
+              </button>
+            </div>
 
-  <div className="wallets">
-    {wallets.map(wallet => (
-      <WalletCard
-        key={wallet.id}
-        address={wallet.id}
-        count={wallet.count}
-        isOpen={openWalletId === wallet.id}
-        onToggle={() => toggleWallet(wallet.id)}
-        onIncrement={() => updateCount(wallet.id, 1)}
-        onDecrement={() => updateCount(wallet.id, -1)}
-        onReset={() => resetCount(wallet.id)}
-        onDelete={() => deleteWallet(wallet.id)}
-      />
-    ))}
-  </div>
+            <div className="wallets">
+              {wallets.map(wallet => (
+                <WalletCard
+                  key={wallet.id}
+                  address={wallet.id}
+                  count={wallet.count}
+                  isOpen={openWalletId === wallet.id}
+                  onToggle={() => toggleWallet(wallet.id)}
+                  onIncrement={() => updateCount(wallet.id, 1)}
+                  onDecrement={() => updateCount(wallet.id, -1)}
+                  onReset={() => resetCount(wallet.id)}
+                  onDelete={() => deleteWallet(wallet.id)}
+                />
+              ))}
+            </div>
 
-  <div className="toast">
-    {toast.show && (
-      <Toast message={toast.message} type={toast.type} onClose={() => setToast({ show: false, message: '', type: '' })} />
-    )}
-  </div>
-</div>
+            {toast.show && (
+              <div className={`toast ${toast.type}`}>
+                <Toast
+                  message={toast.message}
+                  type={toast.type}
+                  onClose={() =>
+                    setToast({ show: false, message: '', type: '' })
+                  }
+                />
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </section>

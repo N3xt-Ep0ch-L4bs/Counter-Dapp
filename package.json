@@ -10,6 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@mysten/sui": "^1.37.1",
+    "@suiet/wallet-kit": "^0.5.1",
     "react": "^19.1.0",
     "react-dom": "^19.1.0"
   },
