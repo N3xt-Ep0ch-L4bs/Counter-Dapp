@@ -37,7 +37,6 @@ function App() {
   }
 }, [connected, account, hasConnected]);
 
-
   const showToast = (message, type = 'success') => {
     setToast({ show: true, message, type });
     setTimeout(() => setToast({ show: false, message: '', type: '' }), 3000);
@@ -206,48 +205,69 @@ function App() {
           )}
         </header>
 
-       <ConnectModal 
-  open={showModal} 
-  onOpenChange={setShowModal} 
-/>
-
+        <ConnectModal 
+          open={showModal} 
+          onOpenChange={setShowModal} 
+        />
 
         <div className="main-content">
-          <div className="counter-box">
-            <h2>General Counter</h2>
-            <div className="btns">
-              <div className="count">{count}</div>
-              <button onClick={incrementGlobal}>+</button>
-              <button onClick={decrementGlobal}>-</button>
+          {/* Improved layout with centered global counter */}
+          <div className="global-counter-section">
+            <div className="counter-box">
+              <h2>General Counter</h2>
+              <div className="btns">
+                <div className="count">{count}</div>
+                <div className="btn-cont">
+                   <button onClick={incrementGlobal}>+</button>
+                  <button onClick={decrementGlobal}>-</button>
+                </div>
+               
+              </div>
             </div>
           </div>
 
-          <div className="wallets-section">
-            <div className="wallets-header">
-              <button onClick={createNewWallet} className='create-new'>Create new counter +</button>
+          {/* Improved personal counters section */}
+          <div className="personal-counters-section">
+            <div className="section-header">
+              <h3>Personal Counters</h3>
+              <button onClick={createNewWallet} className='create-new'>
+                Create new counter +
+              </button>
             </div>
+            
             <div className="wallets">
-              {wallets.map((wallet) => (
-                <WalletCard
-                  key={wallet.id}
-                  address={wallet.address.slice(0, 6) + '....'}
-                  count={wallet.count}
-                  isOpen={openWalletId === wallet.id}
-                  onToggle={() => setOpenWalletId(openWalletId === wallet.id ? null : wallet.id)}
-                  onIncrement={() => updateCount(wallet.id, 1)}
-                  onDecrement={() => updateCount(wallet.id, -1)}
-                  onReset={() => resetCount(wallet.id)}
-                  onDelete={() => deleteWallet(wallet.id)}
-                />
-              ))}
+              {wallets.length === 0 ? (
+                <div className="empty-state">
+                  <p>No personal counters yet. Create your first one!</p>
+                </div>
+              ) : (
+                wallets.map((wallet) => (
+                  <WalletCard
+                    key={wallet.id}
+                    address={wallet.address.slice(0, 6) + '....'}
+                    count={wallet.count}
+                    isOpen={openWalletId === wallet.id}
+                    onToggle={() => setOpenWalletId(openWalletId === wallet.id ? null : wallet.id)}
+                    onIncrement={() => updateCount(wallet.id, 1)}
+                    onDecrement={() => updateCount(wallet.id, -1)}
+                    onReset={() => resetCount(wallet.id)}
+                    onDelete={() => deleteWallet(wallet.id)}
+                  />
+                ))
+              )}
             </div>
-            {toast.show && (
-              <div className={`toast ${toast.type}`}>
-                <Toast message={toast.message} type={toast.type} onClose={() => setToast({ show: false, message: '', type: '' })} />
-              </div>
-            )}
           </div>
         </div>
+
+        {toast.show && (
+          <div className={`toast ${toast.type}`}>
+            <Toast 
+              message={toast.message} 
+              type={toast.type} 
+              onClose={() => setToast({ show: false, message: '', type: '' })} 
+            />
+          </div>
+        )}
       </div>
     </section>
   );

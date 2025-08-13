@@ -19,12 +19,15 @@ header {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 5px;
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
 .logo-title {
   display: flex;
   align-items: center;
   gap: 10px;
+  min-width: 0;
 }
 
 .logo {
@@ -32,6 +35,7 @@ header {
   width: 40px;
   object-fit: contain;
   margin-bottom: 5px;
+  flex-shrink: 0;
 }
 
 .connect-wallet {
@@ -40,6 +44,7 @@ header {
   padding: 8px 14px;
   border-radius: 5px;
   cursor: pointer;
+  white-space: nowrap;
 }
 
 .connect-wallet:hover {
@@ -58,14 +63,20 @@ header {
 
 .counter-box {
   background-color: #3B82F6;
-  padding: 20px;
+  height: 130px;
+  padding: 13px;
   border-radius: 10px;
-  min-width: 200px;
+  min-width: 350px;
   text-align: center;
   font-weight: normal;
   align-items: center;
   margin-top: 8rem;
   margin-bottom: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
 }
 
 .counter-box h2 {
@@ -75,6 +86,11 @@ header {
 
 .counter-box .count {
   font-size: 25px;
+}
+
+.btn-cont{
+  margin-top: 10px;
+  padding-bottom: 10px;
 }
 
 .counter-box .btns button {
@@ -123,6 +139,7 @@ header {
   color: white;
   margin-bottom: 10px;
   cursor: pointer;
+  white-space: nowrap;
 }
 
 .create-new:hover {
@@ -163,7 +180,8 @@ header {
   display: flex;
   gap: 10px;
   margin-top: 10px;
-  
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .btn {
@@ -172,6 +190,7 @@ header {
   color: white;
   border-radius: 5px;
   cursor: pointer;
+  min-width: 60px;
 }
 
 .add {
@@ -191,12 +210,11 @@ header {
   color: black;
 }
 
-
-
 .wallet-actions {
   display: flex;
   gap: 0.75rem;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .wallet-address {
@@ -207,6 +225,7 @@ header {
   border-radius: 6px;
   font-weight: 600;
   cursor: default;
+  font-size: 12px;
 }
 
 .logout {
@@ -218,8 +237,268 @@ header {
   font-weight: 600;
   cursor: pointer;
   transition: background 0.5s;
+  white-space: nowrap;
 }
 
 .logout:hover {
   background-color: #c0392b;
+}
+
+.global-counter-section {
+  display: flex;
+  justify-content: center;
+  margin: 5rem 0;
+}
+
+.personal-counters-section {
+  margin-top: 5rem;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding: 0 1rem;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.section-header h3 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 3rem;
+  color: #666;
+  font-style: italic;
+}
+
+/* Mobile Responsive Styles */
+@media screen and (max-width: 768px) {
+  body, html, .app {
+    padding: 15px;
+  }
+
+  header {
+    font-size: 0.7em;
+    margin-bottom: 15px;
+  }
+
+  .logo-title h1 {
+    font-size: 1.5rem;
+  }
+
+  .logo {
+    height: 35px;
+    width: 35px;
+  }
+
+  .main-content {
+    grid-template-columns: 1fr;
+    gap: 15px;
+    padding: 15px;
+  }
+
+  .counter-box {
+    min-width: unset;
+    width: 100%;
+    height: auto;
+    margin-top: 0;
+    padding: 20px;
+  }
+
+  .global-counter-section {
+    margin: .5rem 0;
+  }
+
+  .personal-counters-section {
+    margin-top: .2rem;
+  }
+
+  .section-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+    padding: 0;
+  }
+
+  .section-header h3 {
+    text-align: center;
+    font-size: 1.3rem;
+  }
+
+  .create-new {
+    align-self: center;
+    padding: 10px 20px;
+  }
+
+  .wallets {
+    height: auto;
+    max-height: 400px;
+    padding-right: 5px;
+  }
+
+  .wallet-actions {
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .wallet-address {
+    font-size: 11px;
+    padding: 6px 10px;
+  }
+
+  .logout {
+    padding: 6px 12px;
+    font-size: 14px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  body, html, .app {
+    padding: 10px;
+  }
+
+  header {
+    flex-direction: column;
+    align-items: stretch;
+    text-align: center;
+    gap: 15px;
+  }
+
+  .logo-title {
+    justify-content: center;
+    margin-bottom: 10px;
+  }
+
+  .logo-title h1 {
+    font-size: 1.3rem;
+  }
+
+  .logo {
+    height: 30px;
+    width: 30px;
+  }
+
+  .connect-wallet {
+    padding: 10px 16px;
+    font-size: 14px;
+  }
+
+  .main-content {
+    padding: 12px;
+    gap: 12px;
+  }
+
+  .counter-box {
+    padding: 15px;
+    gap: 8px;
+  }
+
+  .counter-box h2 {
+    font-size: 18px;
+  }
+
+  .counter-box .count {
+    font-size: 22px;
+  }
+
+  .counter-box .btns {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  .counter-box .btns button {
+    font-size: 18px;
+    padding: 8px 12px;
+    min-width: 40px;
+  }
+
+  .section-header h3 {
+    font-size: 1.2rem;
+  }
+
+  .create-new {
+    padding: 12px 18px;
+    font-size: 14px;
+  }
+
+  .wallet {
+    padding: 12px;
+    margin: 6px 0;
+  }
+
+  .card-container {
+    padding: 12px;
+    margin: 8px 0;
+  }
+
+  .btn-group {
+    gap: 8px;
+  }
+
+  .btn {
+    padding: 8px 12px;
+    font-size: 13px;
+    min-width: 50px;
+  }
+
+  .wallet-actions {
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+  }
+
+  .wallet-address {
+    font-size: 10px;
+    padding: 8px 12px;
+    width: 100%;
+    text-align: center;
+  }
+
+  .logout {
+    padding: 8px 16px;
+    font-size: 13px;
+    width: 100%;
+  }
+
+  .empty-state {
+    padding: 2rem 1rem;
+    font-size: 14px;
+  }
+}
+
+/* Extra small devices */
+@media screen and (max-width: 320px) {
+  .counter-box h2 {
+    font-size: 16px;
+  }
+
+  .counter-box .count {
+    font-size: 20px;
+  }
+
+  .counter-box .btns button {
+    font-size: 16px;
+    padding: 6px 10px;
+  }
+
+  .section-header h3 {
+    font-size: 1.1rem;
+  }
+
+  .btn-group {
+    gap: 6px;
+  }
+
+  .btn {
+    padding: 6px 8px;
+    font-size: 12px;
+    min-width: 45px;
+  }
 }
