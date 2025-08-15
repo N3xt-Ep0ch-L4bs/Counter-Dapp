@@ -60,7 +60,7 @@ header {
   background-color: #3B82F6;
   padding: 20px;
   border-radius: 10px;
-  min-width: 200px;
+  min-width: 250px;
   text-align: center;
   font-weight: normal;
   align-items: center;
@@ -91,17 +91,40 @@ header {
 .counter-box .btns button:last-child {
   background-color: grey;
 }
+.wallets-header {
+  display: flex;
+  align-items: center;
+  gap: 250px; 
+  margin-bottom: 15px;
+}
+
+.history-link {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.history-icon {
+  background-color: #D3EAFF;
+  width: 30px;
+  height: 30px;
+  transition: transform 0.2s ease;
+}
+
+.history-icon:hover {
+  transform: scale(1.1);
+}
 
 .wallets {
   flex: 1;
-  height: 350px;
+  height: 450px;
   overflow-y: auto;
   padding-right: 10px;
   margin-top: 1rem;
   border-radius: 8px;
 }
 
-/* Optional: smooth and clean scrollbar */
+
 .wallets::-webkit-scrollbar {
   width: 6px;
 }
@@ -140,17 +163,13 @@ header {
   transition: background-color 0.3s ease;
 }
 
-.wallet.open {
-   background-color: #3B82F6;
-}
-
 .wallet:hover {
   background-color: #2b65c0;
 }
 
 .card-container {
   flex-flow: column nowrap;
-  background-color: #0099ff;
+  background-color: #3B82F6;
   margin: 10px 0;
   padding: 15px;
   border-radius: 8px;
@@ -167,7 +186,7 @@ header {
 }
 
 .btn {
-  padding: 5px 10px;
+  padding: 4px 8px;
   border: none;
   color: white;
   border-radius: 5px;

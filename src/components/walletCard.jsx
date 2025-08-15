@@ -14,18 +14,21 @@ const WalletCard = ({ address, isOpen, onToggle,  count,
   return (
     <div className="card-wrapper">
       {!isOpen ? (
-        <div className="wallet" onClick={onToggle}>
-          {address}
-          <span className="arrow">
+        <div className="wallet" >
+          <div className="id-box">
+          {address}</div>
+          <span className="arrow"
+          onClick={onToggle} >
             <img src={ArrowDown} className="arrow" alt="arrow" />
           </span>
         </div>
       ) : (
         <div className="card-container">
           <p className="id-box">{address}</p>
-          <div className="arrow" onClick={onToggle}>
-            <img src={ArrowUp} alt="arrow" />
-          </div>
+         <span className="arrow" onClick={onToggle}>
+            <img src={ArrowUp} alt="arrow" 
+            className="arrow"/></span>
+          
           <h3 className="count">{count}</h3>
           <div className="btn-group">
             <button className="add" onClick={onIncrement}><img src={Add} alt="add" className="ic" /></button>
