@@ -17,7 +17,7 @@ header {
   font-size: 0.6em;
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: cen ter;
   margin-bottom: 5px;
 }
 
@@ -60,7 +60,7 @@ header {
   background-color: #3B82F6;
   padding: 20px;
   border-radius: 10px;
-  min-width: 250px;
+  /* min-width: 250px; */
   text-align: center;
   font-weight: normal;
   align-items: center;
@@ -94,7 +94,7 @@ header {
 .wallets-header {
   display: flex;
   align-items: center;
-  gap: 250px; 
+ justify-content: space-between;
   margin-bottom: 15px;
 }
 
@@ -241,4 +241,19 @@ header {
 
 .logout:hover {
   background-color: #c0392b;
+}
+
+@media (width < 800px) {
+  .main-content{
+    grid-template-columns: 1fr;
+  }
+  .wallets-section{
+   position: relative;
+}
+  .create-new{
+    position: absolute;
+    top: 70%;
+    left: 85%;
+    font-size: 0.5rem;
+  }
 }
