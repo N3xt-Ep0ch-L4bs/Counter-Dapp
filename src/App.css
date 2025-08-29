@@ -9,7 +9,11 @@ body, html, .app {
   height: 100%;
   background-color: #003264;
   color: #fff;
-  padding: 20px;
+  /* padding: 20px; */
+}
+
+.app {
+  padding: 1rem;
 }
 
 header {
@@ -254,6 +258,7 @@ header {
     position: absolute;
     top: 70%;
     left: 85%;
-    font-size: 0.5rem;
+    font-size: 0.7rem;
+    padding: 6px 8px;
   }
 }
